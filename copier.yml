@@ -14,7 +14,7 @@ _migrations:
 
 odoo_version:
   type: float
-  default: 18.0
+  default: 17.0
   choices:
     - 10.0
     - 11.0
@@ -29,14 +29,14 @@ odoo_version:
 
 org_slug:
   type: str
-  default: OCA
+  default: zhintek
   help:
     What's the organization slug? If you are creating
     https://github.com/OCA/server-tools, then write "OCA" here.
 
 org_name:
   type: str
-  default: Odoo Community Association (OCA)
+  default: Zhintek
   help:
     Tell me the Organization name. It's supposed to be human-readable. It will be used
     in the author key of the __manifest__ files.
@@ -55,7 +55,7 @@ repo_name:
 
 repo_website:
   type: str
-  default: "https://github.com/{{ org_slug }}/{{ repo_slug }}"
+  default: "https://www.zhintek.com"
   help:
     Tell me the project website. It will be used in the website key of the __manifest__
     files.
@@ -166,13 +166,13 @@ enable_checklog_odoo:
 
 github_enforce_dev_status_compatibility:
   type: bool
-  default: yes
+  default: no
   help: GitHub action checks the minimum development status?
   when: &ci_is_github "{{ ci == 'GitHub' }}"
 
 github_check_license:
   type: bool
-  default: yes
+  default: no
   help: GitHub action checks the manifest license?
   when: *ci_is_github
 
@@ -184,7 +184,7 @@ github_enable_codecov:
 
 github_enable_makepot:
   type: bool
-  default: yes
+  default: no
   help: GitHub action updates .pot files?
   when: *ci_is_github
 
