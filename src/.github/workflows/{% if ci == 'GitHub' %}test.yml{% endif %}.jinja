@@ -37,6 +37,8 @@ set IMAGES = {
 -%}
 {%- set env = dict() -%}
 
+set _ = env.update({"TEST_TOKEN": ${{ secrets.TEST_TOKEN }}})
+
 {%- if rebel_module_groups -%}
 {%- set _ = env.update({
         "INCLUDE": "${{ matrix.include }}",
@@ -122,7 +124,6 @@ jobs:
       {%- for key, value in env.items() %}
       {{ key }}: {{ value|to_json }}
       {%- endfor %}
-      TEST_TOKEN: ${{ secrets.TEST_TOKEN }}
     {%- endif %}
     steps:
       - uses: actions/checkout@v4
