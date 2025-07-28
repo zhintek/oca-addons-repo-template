@@ -193,6 +193,11 @@ github_enable_stale_action:
   default: yes
   help: Create GitHub 'stale' action?
 
+github_cleanup_runs:
+  type: bool
+  default: yes
+  help: Cleanup GitHub workflow runs (when branches are merged)?
+
 github_ci_extra_env:
   type: yaml
   default: {}
