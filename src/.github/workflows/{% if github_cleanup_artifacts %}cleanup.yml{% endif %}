@@ -1,0 +1,56 @@
+name: Cleanup orphaned artifacts
+
+on:
+  schedule:
+    - cron: '0 3 * * 0'  # todos los domingos a las 3 AM UTC
+  workflow_dispatch:
+
+jobs:
+  cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete orphaned artifacts (branches no longer exist)
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+
+            const allArtifacts = await github.rest.actions.listArtifactsForRepo({ owner, repo, per_page: 100 });
+            const artifacts = allArtifacts.data.artifacts;
+
+            for (const artifact of artifacts) {
+              const runId = artifact.workflow_run?.id;
+              if (!runId) continue;
+
+              try {
+                const run = await github.rest.actions.getWorkflowRun({
+                  owner,
+                  repo,
+                  run_id: runId
+                });
+
+                const branch = run.data.head_branch;
+
+                try {
+                  // Check if the branch still exists
+                  await github.rest.repos.getBranch({ owner, repo, branch });
+                  console.log(`Branch '${branch}' still exists — keeping artifact '${artifact.name}'`);
+                } catch (branchError) {
+                  if (branchError.status === 404) {
+                    // Branch no longer exists — delete artifact
+                    await github.rest.actions.deleteArtifact({
+                      owner,
+                      repo,
+                      artifact_id: artifact.id
+                    });
+                    console.log(`🗑 Deleted artifact '${artifact.name}' from deleted branch '${branch}'`);
+                  } else {
+                    throw branchError;
+                  }
+                }
+              } catch (e) {
+                console.log(`⚠️ Failed to fetch run or branch info for artifact '${artifact.name}': ${e.message}`);
+              }
+            }
