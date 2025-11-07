@@ -13,10 +13,10 @@
 {%- if ci == "Travis" %}
 [![Build Status](https://travis-ci.com/{{ org_slug }}/{{ repo_slug }}.svg?branch={{ odoo_version }})](https://travis-ci.com/{{ org_slug }}/{{ repo_slug }})
 {%- else %}
-[![Pre-commit Status](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/pre-commit.yml/badge.svg?branch=main)](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/pre-commit.yml?query=branch%main)
-[![Build Status](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/test.yml?query=branch%main)
+[![Pre-commit Status](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/pre-commit.yml/badge.svg?branch={{ default_branch }})](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/pre-commit.yml?query=branch%{{ default_branch }})
+[![Build Status](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/test.yml/badge.svg?branch={{ default_branch }})](https://github.com/{{ org_slug }}/{{ repo_slug }}/actions/workflows/test.yml?query=branch%{{ default_branch }})
 {%- endif %}
-[![codecov](https://codecov.io/gh/{{ org_slug }}/{{ repo_slug }}/branch/main/graph/badge.svg)](https://codecov.io/gh/{{ org_slug }}/{{ repo_slug }})
+[![codecov](https://codecov.io/gh/{{ org_slug }}/{{ repo_slug }}/branch/{{ default_branch }}/graph/badge.svg)](https://codecov.io/gh/{{ org_slug }}/{{ repo_slug }})
 {%- if org_slug == "OCA" %}
 [![Translation Status](https://translation.odoo-community.org/widgets/{{ repo_slug }}-{{ odoo_version_slug(odoo_version) }}/-/svg-badge.svg)](https://translation.odoo-community.org/engage/{{ repo_slug }}-{{ odoo_version_slug(odoo_version) }}/?utm_source=widget)
 {%- else %}

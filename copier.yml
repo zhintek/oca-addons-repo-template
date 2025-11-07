@@ -65,6 +65,11 @@ repo_description:
   type: str
   help: Please write a short description about what this repo is about.
 
+default_branch:
+  type: str
+  default: main
+  help: Default branch name to target in GitHub workflows and badges.
+
 ci:
   type: str
   default: GitHub
