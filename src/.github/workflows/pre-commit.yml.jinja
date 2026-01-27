@@ -3,13 +3,8 @@ name: pre-commit
 on:
   pull_request:
     branches:
-      - "dev"
-      - "staging"
       - "{{ default_branch }}"
-  push:
-    branches:
-      - "ODO-*"
-      - "{{ odoo_version }}-test-*"
+
 
 jobs:
   pre-commit:
