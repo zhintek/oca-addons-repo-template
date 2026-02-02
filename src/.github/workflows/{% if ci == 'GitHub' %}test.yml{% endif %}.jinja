@@ -107,7 +107,7 @@ jobs:
         {%- if odoo_version < 16 %}
         image: postgres:9.6
         {%- elif odoo_version < 19 %}
-        image: postgres:12
+        image: postgis/postgis:12-3.3
         {%- else %}
         image: postgis/postgis:12-3.3
         {%- endif %}
