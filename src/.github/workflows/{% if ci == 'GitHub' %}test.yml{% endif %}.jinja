@@ -139,7 +139,7 @@ jobs:
           persist-credentials: false
           repository: zhintek/zhintek-enterprise-odoo
           path: zhintek-enterprise-odoo
-          ref: "{{ odoo_version }}"
+          ref: "{{ 'main' if odoo_version == 17.0 else odoo_version }}"
           token: {{"${{ steps.app-token.outputs.token }}"}}
       - name: Install addons and dependencies
         env:
